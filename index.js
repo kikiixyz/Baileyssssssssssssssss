@@ -1,3 +1,4 @@
+
 /*
 * Thanks For 𝗠𝗵𝗮𝗻𝗸𝗕𝗮𝗿𝗕𝗮𝗿
 */
@@ -200,6 +201,13 @@ client.on('CB:Blocklist', json => {
 		blocked.push(i.replace('c.us', 's.whatsapp.net'))
 	}
 })
+client.on('CB:action,,call', async json => {
+	
+        const callerId = json[2][0][1].from;
+        console.log(`[WARN] ${callerId.split('@')[0]} is calling!`);
+client.sendMessage(callerId, `Kenapa?  @${callerId.split('@')[0]}, Jangan di telpon, ntar dibales kok`, MessageType.text, { contextInfo: { mentionedJid: [callerId] } })
+		  
+});
 client.on('message-update', async (hurtz) => {
 	try {
 		const from = hurtz.key.remoteJid
@@ -257,15 +265,10 @@ client.on('message-update', async (hurtz) => {
 				}
 			if (int.type == 'conversation' || int.type == 'extendedTextMessage') {
 				const strConversation = `  「 Ａｎｔｉ Ｄｅｌｅｔｅ 」
-
 👁 Pesan Dihapus @${sender.replace('@s.whatsapp.net', '')}
-
 ✏ *Tipe Pesan :* *Text*
-
 ⏰ *Waktu :* *${moment.unix(int.timestamp).format('HH:mm:ss')}*
-
 📆 *Tanggal :* *${moment.unix(int.timestamp).format('DD/MM/YYYY')}*
-
 💬 *Pesan :* 「 *${body ? body : '-'}* 」`
 
 				client.sendMessage(from, strConversation, MessageType.text, selepbot72)
@@ -285,13 +288,9 @@ client.on('message-update', async (hurtz) => {
 				const filename = `${sender.replace('@s.whatsapp.net', '')}-${moment().unix()}`
 				const savedFilename = await client.downloadAndSaveMediaMessage(int.data, `./media/sticker/${filename}`);
 				const strConversation = `  「 Ａｎｔｉ Ｄｅｌｅｔｅ 」
-
 👁 Pesan Dihapus @${sender.replace('@s.whatsapp.net', '')}
-
 📍 *Tipe Pesan :* *Sticker*
-
 ⏰ *Waktu :* *${moment.unix(int.timestamp).format('HH:mm:ss')}*
-
 📆 *Tanggal :* *${moment.unix(int.timestamp).format('DD/MM/YYYY')}*`
 
 				const buff = fs.readFileSync(savedFilename)
@@ -317,16 +316,11 @@ client.on('message-update', async (hurtz) => {
 				const savedFilename = await client.downloadAndSaveMediaMessage(int.data, `./media/revoke/${filename}`);
 				const buff = fs.readFileSync(savedFilename)
 				const strConversation = `  「 Ａｎｔｉ Ｄｅｌｅｔｅ 」
-
 👁 Pesan Dihapus @${sender.replace('@s.whatsapp.net', '')}
-
 📍 *Tipe Pesan :* *Image/Foto*
-
 ⏰ *Waktu :* *${moment.unix(int.timestamp).format('HH:mm:ss')}*
-
 📆 *Tanggal :* *${moment.unix(int.timestamp).format('DD/MM/YYYY')}*
-
-💬 *Pesan :* 「 ${body ? body : '-'}\`\`\`* 」`
+💬 *Pesan :* 「 ${body ? body : '-'} 」`
 				client.sendMessage(from, buff, MessageType.image, { contextInfo: { mentionedJid: [sender] }, caption: strConversation })
 				fs.unlinkSync(savedFilename)
 			}
@@ -1224,15 +1218,11 @@ client.on('message-new', async (mek) => {
 				}
 
 				menunye = `		「 *𝐒𝐄𝐋𝐅𝐁𝐎𝐓 - 𝐖𝐀* 」
-
 ◪ 𝗜𝗡𝗙𝗢
   ❏ Ver: Baileys
   ❏ Prefix: 「  .  」
   ❏ Creator: Nafiz
-
-
 「Ｇｒｏｕｐ Ｃｏｍｍａｎｄ	」
-
 ┌々 ${prefix}grup close|open
 ├々 ${prefix}gcname <text>
 ├々 ${prefix}gcdesk <text>
@@ -1259,7 +1249,6 @@ client.on('message-new', async (mek) => {
   ├─ ❏ ${prefix}wait <reply gambar>
   ├─ ❏ ${prefix}randomhentai
   └─ ❏ ${prefix}shota
-
 ◪ 𝐌𝐄𝐃𝐈𝐀
   │
   ├─ ❏ ${prefix}ssweb <linknya>
@@ -1281,7 +1270,6 @@ client.on('message-new', async (mek) => {
   ├─ ❏ ${prefix}memeindo <teks|teks>
   ├─ ❏ ${prefix}ocr
   └─ ❏ ${prefix}howak
-
 ◪ 𝐓𝐎𝐎𝐋𝐒
   │
   ├─ ${prefix}addsticker <optional>
@@ -1298,7 +1286,6 @@ client.on('message-new', async (mek) => {
   ├─ ${prefix}listimage
   ├─ ${prefix}sticker
   └─ ❏ ${prefix}toimg
-
 ◪ 𝐎𝐓𝐇𝐄𝐑
   │
   ├─ ❏ ${prefix}antidelete ctaktif
@@ -1326,7 +1313,6 @@ client.on('message-new', async (mek) => {
   ├─ ❏ ${prefix}blocklist
   ├─ ❏ ${prefix}tagme
   └─ ❏ ${prefix}cekchat
-
 		「 *𝐒𝐄𝐋𝐅𝐁𝐎𝐓 - 𝐖𝐀* 」`
 				//client.sendMessage(from, `${menunye}`, text, {quoted: { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: from } : {}) }, message: {"documentMessage":{"url":"https://mmg.whatsapp.net/d/f/AtHLzTy3x5JLR-MkdAUU2uCP3tS9sfft5Ju5Fji9VKiE.enc","mimetype":"application/zip","title":"MrG3P5-Self-BOT.zip","fileSha256":"CulFTmWMOH/b74cQ5PbHOzkbACsGdp6pkomAx6g7eyo=","fileLength":"590029","pageCount":0,"mediaKey":"IRZSQcocXIMiZekyyTxlh/Ssv+3rEsTgaB2/YwKrc5Y=","fileName":"MrG3P5-Self-BOT.zip","fileEncSha256":"L7tw5mV4L8i7exigg9cuvdsG2iE/PdTY1iUwiG1XG9o=","directPath":"/v/t62.7119-24/31588600_791634581428832_7549417941596925412_n.enc?oh=f29a51c88f6f9f74bf6a40da288ee53d&oe=6029D212","mediaKeyTimestamp":"1610741815"}}}})
 				// INI IMAGE client.sendMessage(from, `${menunye}`, text, {quoted: { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: from } : {}) }, message: {"imageMessage":{"url":"https://mmg.whatsapp.net/d/f/AmxPql4FPL7heN6DOICBCWxEvJWFxWp1QTF5qGn0kTfc.enc","mimetype":"image/jpeg","fileSha256":"OntRRvEjqlhgSay1CjGyoXfDxJEYXiSs7S7sd8SeIOU=","fileLength":"187338","height":720,"width":720,"mediaKey":"Je9gvfKw6z0TNeIZg5dw2nSBpDLQjdkNWUd+NlLSMs0=","fileEncSha256":"IFxc5XbejFdoiR81aASP2KFbmmYk8D8Z3UdNLtyv9gU=","directPath":"/v/t62.7118-24/30277902_101053238591593_1206853676082319866_n.enc?oh=a626501529c1fd9254dac94edc247c9e&oe=602E644A","mediaKeyTimestamp":"1610805212","jpegThumbnail":"/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z//////////////8BGxsbGxwbHiEhHiotKC0qPTgzMzg9XUJHQkdCXY1YZ1hYZ1iNfZd7c3uXfeCwnJyw4P/Zztn////////////////CABEIAEgASAMBIgACEQEDEQH/xAAwAAACAwEAAAAAAAAAAAAAAAAAAgEDBQQBAAMBAQEAAAAAAAAAAAAAAAIDBAEABf/aAAwDAQACEAMQAAAA7RVKNxJ3pEnDcgJciBYIyrYMs89WtQWEKzoAgLmWIFjqxP6vPa8cNFfQMiYB8+euXMlunbkvzdl8Z8PZMu809xzlMGDIS2vYAtmwBLo6Q3FA3P/EACYQAQABAwQBAgcAAAAAAAAAAAEAAgMREBIxQSEEIAUTFSJCU2L/2gAIAQEAAT8A9mZmZ03EWNTCrRZTxqRYzuLFw4lFWSZmfY6U/LKVqMsr2bvtOp3MkyaOiOEHDC3d/ZMJjMu17PJC9uqPE6jUHMHd7GNI8kLdI5xOZV62wnCs+oHVEPiH8Sn11t5GHqrL3C9bfyJvpe5nMNQgQIEpKullNdynnzC/T340IQ0JRAEjan//xAAdEQACAgIDAQAAAAAAAAAAAAAAAQIRECESMVFB/9oACAECAQE/ALFs5bE7w1ojqLI1ZSRRPilvCdNEn5Ij0h7dtvMXD7YpR9WHhY//xAAhEQACAgICAQUAAAAAAAAAAAABAgADERIQMUEgIjNRcf/aAAgBAwEBPwBVLHAjKynBENRVAx881fIn7LUZrwJfkpjHXNauzDUcOuyMB5ErqbYBkjgB2A+4vt6gZpsZYbiDriFHHamCD0f/2Q=="}}}})
@@ -2091,4 +2077,3 @@ client.on('message-new', async (mek) => {
 /*
 *Thanks For 𝗠𝗵𝗮𝗻𝗸𝗕𝗮𝗿𝗕𝗮𝗿
 */
-
